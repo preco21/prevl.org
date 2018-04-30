@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="utf-8">
+		<title>Youtube 동영상소스 생성기</title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+		<noscript><meta http-equiv="refresh" content="0;url=https://www.enable-javascript.com/ko/"></noscript>
+
+		<meta name="description" content="유튜브 동영상을 원하는 페이지에 추가할 수 있도록 도와주는 소스 생성기입니다">
+		<meta name="keywords" content="youtube, video, 유튜브, 동영상, 생성기, 소스, 생성, 퍼가기, 영상">
+		<meta name="author" content="Plusb Preco">
+
+    <link rel="icon" sizes="192x192" href="/images/icon.png">
+    <link rel="apple-touch-icon" href="/images/icon.png">
+
+		<link rel="stylesheet" media="screen" href="/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.0.1/css/bootstrap3/bootstrap-switch.min.css">
+		<link rel="stylesheet" href="/css/bootstrap-colorpicker.min.css">
+		<link rel="stylesheet" href="stylesheet.css">
+	</head>
+	<body>
+		<section class="container">
+			<header class="page-header">
+				<blockquote><h1 class="text-center">Youtube 소스 생성기</h1></blockquote>
+			</header>
+
+			<div id="warnArea" class="row"></div>
+
+			<section class="row">
+				<h1 class="text-info">1. Youtube 동영상 입력</h1>
+				<div class="jumbotron">
+					<div class="container" data-toggle="tooltip" title="생성할 플레이어의 원본 소스를 입력합니다 동영상 주소(URL) 또는 동영상 ID를 입력하면됩니다">
+						<input id="link-input" type="text" tabindex="1" class="form-control input-lg" placeholder="이곳에 유튜브 동영상 링크 또는 ID 입력">
+					</div>
+				</div>
+			</section>
+
+			<section class="row">
+				<h1 class="text-info">2. 동영상 설정</h1>
+				<div class="well well-lg">
+					<div class="row">
+						<div class="row">
+							<div class="col-sm-4 col-sm-offset-1" data-toggle="tooltip" title="미리준비된 동영상 크기 목록입니다. 자동사이징은 Object 소스코드에선 적용되지 않습니다">
+								<h3>사이즈 선택</h3>
+								<select id="size-select" class="form-control input-lg"></select>
+							</div>
+							<div class="col-sm-3" data-toggle="tooltip" title="동영상의 가로 크기를 지정합니다">
+								<h3>가로 Size</h3>
+								<div class="input-group">
+									<input id="width-size-input" type="number" class="form-control input-lg size-input" min="0">
+									<span class="input-group-addon"><strong>px</strong></span>
+								</div>
+							</div>
+							<div class="col-sm-3" data-toggle="tooltip" title="동영상의 세로 크기를 지정합니다">
+								<h3>세로 Size</h3>
+								<div class="input-group">
+									<input id="height-size-input" type="number" class="form-control input-lg size-input" min="0">
+									<span class="input-group-addon"><strong>px</strong></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-5 col-sm-offset-1 marg-20">
+							<div class="row">
+								<h3 class="col-sm-7" data-toggle="tooltip" title="페이지가 로드되자마자 자동으로 동영상이 재생됩니다">자동재생</h3>
+								<div class="col-sm-5 slider-marg-13">
+									<input id="auto-play-checkbox" type="checkbox">
+								</div>
+							</div>
+							<div class="row">
+								<h3 class="col-sm-7" data-toggle="tooltip" title="동영상이 끝나고나서 추가적인 동영상 패널이 나타납니다">추천동영상 표시</h3>
+								<div class="col-sm-5 slider-marg-13">
+									<input id="recommend-video-show-checkbox" type="checkbox" checked>
+								</div>
+							</div>
+							<div class="row">
+								<h3 class="col-sm-7" data-toggle="tooltip" title="플레이어 상단의 제목과 링크 관련 버튼들이 모여있는 정보바를 숨깁니다">상단 정보바 숨김</h3>
+								<div class="col-sm-5 slider-marg-13">
+									<input id="top-info-bar-hide-checkbox" type="checkbox">
+								</div>
+							</div>
+							<div class="row">
+								<h3 class="col-sm-7" data-toggle="tooltip" title="플레이어 하단의 컨트롤바를 사용합니다">하단 컨트롤바 사용</h3>
+								<div class="col-sm-5 slider-marg-13">
+									<input id="bottom-control-bar-checkbox" type="checkbox" checked>
+								</div>
+							</div>
+							<div class="row">
+								<h3 class="col-sm-7" data-toggle="tooltip" title="플레이어 테마를 밝은회색으로 바꿉니다">밝은테마 사용</h3>
+								<div class="col-sm-5 slider-marg-13">
+									<input id="use-light-theme-checkbox" type="checkbox">
+								</div>
+							</div>
+							<div class="row">
+								<h3 class="col-sm-7" data-toggle="tooltip" title="동영상 제작자가 추가한 특수효과를 표시합니다">동영상 특수효과 표시</h3>
+								<div class="col-sm-5 slider-marg-13">
+									<input id="use-iv-checkbox" type="checkbox" checked>
+								</div>
+							</div>
+							<div class="row">
+								<h3 class="col-sm-7" data-toggle="tooltip" title="자막을 사용할 수 있는 경우 자막을 사용합니다 (비활성화시 사용자의 설정에 따라 달라집니다)">가능한경우 자막 사용</h3>
+								<div class="col-sm-5 slider-marg-13">
+									<input id="use-caption-checkbox" type="checkbox">
+								</div>
+							</div>
+							<div class="row">
+								<h3 class="col-sm-7" data-toggle="tooltip" title="키보드를 이용한 플레이어 조작을 비활성화합니다">키보드 컨트롤 끄기</h3>
+								<div class="col-sm-5 slider-marg-13">
+									<input id="turn-off-keyboard-control-checkbox" type="checkbox">
+								</div>
+							</div>
+							<div class="row">
+								<h3 class="col-sm-7" data-toggle="tooltip" title="전체화면 버튼을 숨깁니다. 미리보기에선 이 설정을 해제해도 안보일 수 있습니다">전체화면 버튼 숨김</h3>
+								<div class="col-sm-5 slider-marg-13">
+									<input id="hide-fullscreen-button-checkbox" type="checkbox">
+								</div>
+							</div>
+							<div class="row">
+								<h3 class="col-sm-7" data-toggle="tooltip" title="컨트롤바의 오른쪽 하단에 있는 Youtube로고를 숨깁니다 진행바의 색이 회색인경우엔 이 설정이 무시됩니다">Youtube 로고 숨김</h3>
+								<div class="col-sm-5 slider-marg-13">
+									<input id="hide-youtube-button-checkbox" type="checkbox">
+								</div>
+							</div>
+							<div class="row">
+								<h3 class="col-sm-12" data-toggle="tooltip" title="동영상의 시작 지점을 지정합니다 빈칸으로 둘 경우 처음부터 재생됩니다">동영상 시작 지점 지정</h3>
+								<div class="col-sm-12" style="margin-top:13px">
+									<div class="input-group">
+										<input id="video-start-min-input" type="number" class="form-control input-lg" min="0" value="0">
+										<span class="input-group-addon"><strong>분</strong></span>
+										<input id="video-start-sec-input" type="number" class="form-control input-lg" min="0" value="0">
+										<span class="input-group-addon"><strong>초</strong></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-5 marg-20">
+							<div class="row">
+								<h3 class="col-sm-7" data-toggle="tooltip" title="동영상의 기본 화질을 지정합니다">동영상 화질</h3>
+								<div class="col-sm-5 slider-marg-13">
+									<select id="video-resolution-select" class="form-control"></select>
+								</div>
+							</div>
+							<div class="row">
+								<h3 class="col-sm-7" data-toggle="tooltip" title="차세대 HTML5 플레이어의 사용 여부입니다 이 옵션이 켜져있으면 동영상을 모바일에서도 시청이 가능해집니다. 대신 Object 소스코드는 사용 할 수 없습니다">HTML5 플레이어 사용</h3>
+								<div class="col-sm-5 slider-marg-13">
+									<input id="use-html5-player-checkbox" type="checkbox">
+								</div>
+							</div>
+							<div class="row">
+								<h3 class="col-sm-7" data-toggle="tooltip" title="동영상을 재생하지 않은 경우 Youtube의 서버에 방문자의 정보를 전송하지 않습니다">개인정보 강화모드</h3>
+								<div class="col-sm-5 slider-marg-13">
+									<input id="use-security-reinforcement-checkbox" type="checkbox">
+								</div>
+							</div>
+							<div class="row">
+								<h3 class="col-sm-7" data-toggle="tooltip" title="하단 컨트롤바의 작동방식을 변경합니다">컨트롤바 모드</h3>
+								<div class="col-sm-5 slider-marg-13">
+									<select id="control-bar-mode-select" class="form-control"></select>
+								</div>
+							</div>
+							<div class="row">
+								<h3 class="col-sm-7" data-toggle="tooltip" title="플레이어의 배경색을 지정합니다 HTML5플레이어일 경우 로드될때만 보입니다">배경 전경색</h3>
+								<div class="col-sm-5 slider-marg-13">
+									<div id="colorpick-elem" class="input-group colorpickControl">
+										<input id="background-color-input" type="text" class="form-control colorpickerElem">
+										<span class="input-group-addon"><i></i></span>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<h3 class="col-sm-7" data-toggle="tooltip" title="동영상 진행바의 색을 변경합니다 적색과 회색만 지정 할 수 있습니다">진행바 색 설정</h3>
+								<div class="col-sm-5 slider-marg-13">
+									<input id="progress-bar-checkbox" type="checkbox" data-on-color="danger" data-on-text="R" data-off-text="G" checked>
+								</div>
+							</div>
+							<div class="row">
+								<h3 class="col-sm-7" data-toggle="tooltip" title="우선적으로 사용할 자막의 언어를 설정합니다 만약 지원하지 않을경우 기본언어가 사용됩니다">자막 언어 설정</h3>
+								<div class="col-sm-5 slider-marg-13">
+									<select id="caption-language-select" class="form-control"></select>
+								</div>
+							</div>
+							<div class="row">
+								<h3 class="col-sm-7" data-toggle="tooltip" title="HTTPS 프로토콜을 사용하여 컴퓨터와 웹 서버 사이를 오가는 정보의 보안을 강화합니다">HTTPS 프로토콜 사용</h3>
+								<div class="col-sm-5 slider-marg-13">
+									<input id="use-https-checkbox" type="checkbox">
+								</div>
+							</div>
+							<div class="row">
+								<h3 class="col-sm-12" data-toggle="tooltip" title="연속으로 재생할 동영상의 리스트입니다 URL을 넣어주세요 (줄바꿈[Enter]로 구분합니다)">동영상 플레이 리스트</h3>
+								<div class="col-sm-12">
+									<textarea id="video-play-list-textarea" class="form-control" rows="5"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row marg-20">
+						<h3 class="text-center text-warning">주의: 본 설정은 사용자가 재생버튼을 누르거나 자동재생이 활성화 되었을 때부터 적용이 됩니다</h3>
+					</div>
+				</div>
+			</section>
+
+			<section class="row">
+				<h1 class="text-info">3. 동영상 미리보기</h1>
+				<div class="well well-lg">
+					<div id="preview-video-output" class="row text-center">
+						<h1>미리보기 없음</h1>
+					</div>
+					<div class="row">
+						<h3 class="text-center text-muted">주의: 미리보기에선 크기설정을 무시합니다</h3>
+					</div>
+				</div>
+			</section>
+
+			<section class="row">
+				<h1 class="text-info">4. 소스코드 복사</h1>
+				<div class="well well-lg">
+					<div class="row">
+						<div class="col-sm-6">
+							<h3>iframe 소스코드 (권장)</h3>
+							<textarea id="iframe-source-code-textarea" class="form-control text-center" rows="4">동영상 URL을 입력해주세요</textarea>
+						</div>
+						<div class="col-sm-6" data-toggle="tooltip" title="동영상을 삽입하고자하는 사이트가 iframe을 지원하지 않을경우 Object 소스코드를 사용합니다. 몇가지 기능을 사용할 수 없습니다 (자동 크기조절 포함)">
+							<h3>Object 소스코드 (iframe이 안될경우 사용)</h3>
+							<textarea id="object-source-code-textarea" class="form-control text-center" rows="4">동영상 URL을 입력해주세요</textarea>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<h2 class="text-info">원하는 페이지에 위 소스를 복사(Ctrl+C)해서 붙여넣으세요(Ctrl+V)</h2>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="row">
+				<h1 class="text-muted text-center">설정</h1>
+				<div class="well well-lg">
+					<div class="row">
+						<div class="col-sm-5 col-sm-offset-1" data-toggle="tooltip" title="동영상 설정을 업데이트될 때마다 자동으로 저장합니다">
+							<h3 class="col-sm-7" style="margin-top:17px">동영상 설정 자동저장</h3>
+							<div class="col-sm-4" style="margin-top:10px">
+								<input id="auto-save-settings-check" type="checkbox">
+							</div>
+						</div>
+						<div class="col-sm-3 col-xs-6">
+							<button id="save-setting-button" class="btn btn-success btn-lg col-xs-12 top-20" data-toggle="tooltip" title="동영상 설정을 저장합니다">설정 저장</button>
+						</div>
+						<div class="col-sm-3 col-xs-6">
+							<button id="reset-setting-button" class="btn btn-warning btn-lg col-xs-12 top-20" data-toggle="tooltip" title="동영상 설정을 리셋합니다">설정 리셋</button>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<footer class="footer text-center">
+				<a href="https://prevl.io/">© Plusb Preco</a>
+			</footer>
+		</section>
+
+		<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.0.1/js/bootstrap-switch.min.js"></script>
+		<script src="/js/bootstrap-colorpicker.min.js"></script>
+
+		<script src="main.js"></script>
+	</body>
+</html>

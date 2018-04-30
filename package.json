@@ -1,0 +1,21 @@
+{
+  "name": "prevl.org",
+  "version": "1.0.0",
+  "description": "My old prevl website",
+  "author": "Plusb Preco <plusb21@gmail.com>",
+  "private": true,
+  "scripts": {
+    "dev": "http-server --port 3000 app",
+    "deploy": "gh-pages --branch master --dist app"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/preco21/prevl.org#readme",
+  "repository": "https://github.com/preco21/prevl.org.git",
+  "bugs": {
+    "url": "https://github.com/preco21/prevl.org/issues"
+  },
+  "devDependencies": {
+    "gh-pages": "^1.1.0",
+    "http-server": "^0.11.1"
+  }
+}

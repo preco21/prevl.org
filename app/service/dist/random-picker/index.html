@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="utf-8">
+		<title>랜덤추첨기</title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+		<noscript><meta http-equiv="refresh" content="0;url=https://www.enable-javascript.com/ko/"></noscript>
+
+		<meta name="description" content="랜덤 추첨기입니다! 추첨할 사람을 추가한 후 추첨 버튼을 눌러 필요한 인원만큼 추출하세요!">
+		<meta name="keywords" content="추첨기, 랜덤, 랜덤추첨기, 프로그램">
+		<meta name="author" content="Plusb Preco">
+
+    <link rel="icon" sizes="192x192" href="/images/icon.png">
+    <link rel="apple-touch-icon" href="/images/icon.png">
+
+		<link rel="stylesheet" media="screen" href="/css/bootstrap.min.css">
+		<link rel="stylesheet" href="stylesheet.css">
+	</head>
+	<body>
+		<div id="load-result-modal" tabindex="-1" class="modal fade" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">결과 불러오기</h4>
+					</div>
+					<div class="modal-body">
+						<div id="load-result-modal-show" class="row">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-default" data-dismiss="modal">닫기</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="result-modal" tabindex="-1" class="modal fade" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">추첨결과</h4>
+					</div>
+					<div class="modal-body">
+						<div id="result-modal-show" class="row">
+
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-default" data-dismiss="modal">닫기</button>
+						<button id="save-result-button" class="btn btn-success">추첨결과 저장하기</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="picking-modal" tabindex="-1" class="modal fade" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">추첨하기</h4>
+					</div>
+					<div id="picking-modal-show" class="modal-body">
+						<div class="row">
+							<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+								<h3>추첨에서 제외할 Index 목록</h3>
+							</div>
+							<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+								<input id="exclude-input" type="text" class="form-control input-lg" placeholder="' , '로 구분해서 입력하세요. (ie. 10, 20..)" data-toggle="tooltip" data-placement="top" title="Index란 추첨목록에서 각 목록 좌측에 있는 숫자를 의미합니다">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+								<h3>총 추첨할 인원수</h3>
+							</div>
+							<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+								<input id="total-picker-input" type="number" class="form-control input-lg" min="1" value="1">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-10 col-sm-offset-1 marg-20">
+								<button id="start-pickup-button" class="btn btn-danger btn-lg col-xs-12" data-toggle="tooltip" data-placement="top" title="추첨이 시작됩니다.">추첨 시작하기</button>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-default" data-dismiss="modal">닫기</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="addon-modal" tabindex="-1" class="modal fade" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">추가기능</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-sm-offset-1">
+								<h3 class="text-left">이전 추첨기록 불러오기</h3>
+							</div>
+							<button id="get-saved-result-button" class="btn btn-success btn-lg col-xs-12 col-sm-10 col-sm-offset-1">불러오기</button>
+						</div>
+						<div class="row">
+							<div class="col-sm-offset-1">
+								<h3 class="text-left">모든 추첨자 삭제하기</h3>
+							</div>
+							<button id="remove-all-picker-button" class="btn btn-danger btn-lg col-xs-12 col-sm-10 col-sm-offset-1">삭제</button>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-default" data-dismiss="modal">닫기</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<section class="container">
+			<header class="page-header">
+				<blockquote><h1 class="text-center">Random 추첨기</h1></blockquote>
+			</header>
+
+			<section class="row">
+				<div class="col-sm-6">
+					<h1>추첨자 추가하기</h1>
+					<div class="input-group">
+						<input id="selector-input" type="text" tabindex="1" class="form-control input-lg" placeholder="여기에 추첨자 입력">
+						<span class="input-group-btn">
+							<button id="add-target-button" tabindex="2" class="btn btn-primary btn-lg">확인</button>
+						</span>
+					</div>
+				</div>
+
+				<div class="col-sm-6">
+					<h1>추첨하기 / 추가기능</h1>
+					<button tabindex="3" class="btn btn-danger btn-lg col-sm-7 col-xs-6" data-toggle="modal" data-target="#picking-modal">추첨하기</button>
+					<button tabindex="4" class="btn btn-success btn-lg col-sm-offset-1 col-sm-4 col-xs-6" data-toggle="modal" data-target="#addon-modal">추가기능</button>
+				</div>
+			</section>
+
+			<section class="jumbotron marg-20">
+				<div class="container">
+					<div id="picker-list" class="row">
+					</div>
+				</div>
+			</section>
+
+			<footer class="footer text-center">
+				<a href="https://prevl.io/">© Plusb Preco</a>
+			</footer>
+		</section>
+
+		<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+		<script src="mersenne-twister.min.js"></script>
+		<script src="main.js"></script>
+	</body>
+</html>
