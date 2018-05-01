@@ -1,6 +1,6 @@
 # prevl.org
 
-> :sparkles: My legacy prevl website with old fashion :sparkles:
+> :scroll: My legacy prevl website with old fashion
 
 This repo is originally created for serving my old tools listed on top Google search:
 
