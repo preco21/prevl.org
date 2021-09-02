@@ -221,6 +221,12 @@ function startPicking()
   });
 	localStorage.setItem("preco_randomPicker", JSON.stringify(pickerObject));
 
+	gtag('event', 'pick', {
+		'event_category': 'action',
+		'event_label': 'pick',
+		'value': JSON.stringify(pickerObject.hiddenList)
+	});
+
 	$("#result-modal-show").html(dom);
 	$("#picking-modal").modal("hide");
 	$("#result-modal").modal("show");
