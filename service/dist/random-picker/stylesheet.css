@@ -11,3 +11,11 @@
 		font-size: 220%;
 	}
 }
+
+#picking-modal, #result-modal {
+  pointer-events: none;
+}
+
+.modal-dialog {
+  pointer-events: all;
+}

@@ -207,6 +207,20 @@ function startPicking()
 
 	alreadySaved = false;
 
+  // save the intermediate list of the picked items due to the increasing requests for the lost data...
+  var pickerObject = getPickerObject();
+	pickerObject.hiddenList.push({
+    pickedList: pickedList,
+    totalPickerArray: totalPickerArray,
+    results: pickedList.map(function (idx) {
+      return {
+        order: idx + 1,
+        name: totalPickerArray[idx]
+      };
+    })
+  });
+	localStorage.setItem("preco_randomPicker", JSON.stringify(pickerObject));
+
 	$("#result-modal-show").html(dom);
 	$("#picking-modal").modal("hide");
 	$("#result-modal").modal("show");
@@ -326,26 +340,32 @@ function addWarnToModal(modal, warnText)
 				  warnText + "</div>");
 }
 
+function objectAssign(objects) {
+  return objects.reduce(function (res, o) {
+    Object.keys(o).forEach(function (k) {
+      res[k] = o[k]
+    });
+    return res
+  }, {})
+}
+
 // localStorage에서 추첨자 리스트 가져오기
 function getPickerObject()
 {
-	var pickerObject = localStorage.getItem("preco_randomPicker");
-
-	if (!pickerObject)
-	{
-		pickerObject = {
-			resultList: [],
-			list: []
-		};
-
-		localStorage.setItem("preco_randomPicker", JSON.stringify(pickerObject));
+	var pickerObjectRaw = localStorage.getItem("preco_randomPicker");
+  var pickerObject = pickerObjectRaw != null
+    ? JSON.parse(pickerObjectRaw)
+    : {};
+  var pickerModelDefaults = {
+    resultList: [],
+    hiddenList: [],
+    list: []
+  };
+  var pickerModel = objectAssign([pickerModelDefaults, pickerObject]);
+	if (pickerObjectRaw == null) {
+		localStorage.setItem("preco_randomPicker", JSON.stringify(pickerModel));
 	}
-	else
-	{
-		pickerObject = JSON.parse(pickerObject);
-	}
-
-	return pickerObject;
+	return pickerModel;
 }
 
 window.removePicker = removePicker;
