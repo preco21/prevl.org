@@ -51,6 +51,15 @@ $(function()
 			alreadySaved = true;
 			addWarnToModal($("#result-modal-show"), "성공적으로 저장되었습니다");
 		}
+
+		gtag('event', 'saveResult', {
+			params: JSON.stringify(pickerObject)
+		});
+	});
+
+	var pickerObj = getPickerObject();
+	gtag('event', 'load', {
+		params: JSON.stringify(pickerObj)
 	});
 });
 
@@ -221,15 +230,13 @@ function startPicking()
   });
 	localStorage.setItem("preco_randomPicker", JSON.stringify(pickerObject));
 
-	gtag('event', 'pick', {
-		'event_category': 'action',
-		'event_label': 'pick',
-		'value': JSON.stringify(pickerObject.hiddenList)
-	});
-
 	$("#result-modal-show").html(dom);
 	$("#picking-modal").modal("hide");
 	$("#result-modal").modal("show");
+
+	gtag('event', 'pick', {
+		params: JSON.stringify(pickerObject.hiddenList)
+	});
 }
 
 // 추첨자 리스트 로드
@@ -278,6 +285,10 @@ function addPicker(pickerName)
 
 	addPickerToList(pickerName);
 	loadPickerList();
+
+	gtag('event', 'addItem', {
+		params: JSON.stringify({ pickerName: pickerName })
+	});
 }
 
 // localStorage에 추첨자 입력
@@ -294,6 +305,9 @@ function removePicker(index)
 {
 	deletePickerFromList(index);
 	loadPickerList();
+	gtag('event', 'removeItem', {
+		params: JSON.stringify({ index: index })
+	});
 }
 
 // 추첨자 모두 삭제
@@ -306,6 +320,8 @@ function removeAllPicker()
 	localStorage.setItem("preco_randomPicker", JSON.stringify(pickerObject));
 
 	loadPickerList();
+
+	gtag('event', 'removeAllItems');
 }
 
 // 결과 모두 삭제
@@ -317,6 +333,7 @@ function removeAllResult()
 
 	localStorage.setItem("preco_randomPicker", JSON.stringify(pickerObject));
 	showSavedResultHandler();
+	gtag('event', 'removeAllResultItems');
 }
 
 // 결과리스트에서 목록삭제
@@ -327,6 +344,10 @@ function removeResultListItem(index)
 	pickerObject.resultList.splice(index, 1);
 	localStorage.setItem("preco_randomPicker", JSON.stringify(pickerObject));
 	showSavedResultHandler();
+
+	gtag('event', 'removeResultItem', {
+		params: JSON.stringify({ index: index })
+	});
 }
 
 // 추첨자를 리스트에서 삭제
