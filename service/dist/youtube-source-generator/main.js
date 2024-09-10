@@ -298,7 +298,7 @@ function makeVideoEmbedSource()
 	var previewSource = $("<iframe type=\"text/html\" allowtransparency=\"true\" frameborder=\"0\"></iframe>"); // preview Output 데이터
 
 	// processed Input Data
-	var baseId = "", baseQuery = "?", baseProtocol = "http://", basePage = "youtube.com"; // input Data
+	var baseId = "", baseQuery = "?", baseProtocol = "https://", basePage = "youtube.com"; // input Data
 	var baseWidth = 0, baseHeight = 0; // video Frame Size
 	var baseUrl = inputGroup.linkInput.val().trim();
 
