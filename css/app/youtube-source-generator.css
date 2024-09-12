@@ -1,0 +1,61 @@
+textarea {
+    resize: none;
+	font-size: 20px !important;
+}
+
+.tooltip-inner {
+    max-width: 340px;
+    width: 340px;
+	font-size: 150%;
+}
+
+.marg-20 {
+	margin-top: 20px;
+}
+
+.slider-marg-13 {
+	margin-top: 13px;
+}
+
+.footer {
+	margin-bottom: 20px;
+}
+
+.preview-output {
+	position: relative;
+	padding-bottom: 56.25%;
+	padding-left: 0px;
+	height: 0px;
+}
+
+.preview-output iframe {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+}
+
+@media (max-width: 992px) {
+	h3 {
+		font-size: 160%;
+	}
+}
+
+@media (max-width: 768px) {
+	h1 {
+		font-size: 200%;
+	}
+
+	h2 {
+		font-size: 150%;
+	}
+
+	h3 {
+		font-size: 135%;
+	}
+
+	.top-20 {
+		margin-top: 20px;
+	}
+}

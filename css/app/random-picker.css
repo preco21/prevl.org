@@ -1,0 +1,21 @@
+.marg-20 {
+	margin-top: 20px;
+}
+
+.footer {
+	margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+	h1 {
+		font-size: 220%;
+	}
+}
+
+#picking-modal, #result-modal {
+  pointer-events: none;
+}
+
+.modal-dialog {
+  pointer-events: all;
+}
